@@ -3,15 +3,17 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="subtitulo">Dashboard</ion-title>
+    <ion-title class="subtitulo">Destino</ion-title>
     <div slot="end" *ngIf="user">
       <img [src]=user.photoURL style="border-radius: 50%;" width="40px" alt=""> 
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>
-    dashboard works!
-  </p>
+  <div id="map"></div>
+  <div id="filteroptions">
+    <ion-button color="danger" (click)="presentModal()">Configuracion</ion-button>
+    <ion-button color="primary">Repetir</ion-button>
+  </div>
+  <div id="indicators"></div>
 </ion-content>
-
