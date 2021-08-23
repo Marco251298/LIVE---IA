@@ -5,10 +5,11 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { PagesRoutingModule } from './pages/pages.routing';
 
 //Modulos
+import { AuthRoutingModule } from './auth/auth.routing';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/inicio', pathMatch: 'full' },
   {
     path: '**',
     component: NopagefoundComponent
@@ -19,7 +20,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
-    PagesRoutingModule
+    PagesRoutingModule,
+    AuthRoutingModule
   ],
   exports: [RouterModule]
 })

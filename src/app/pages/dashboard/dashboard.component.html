@@ -4,14 +4,26 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title class="subtitulo">Dashboard</ion-title>
-    <div slot="end" *ngIf="user">
-      <img [src]=user.photoURL style="border-radius: 50%;" width="40px" alt=""> 
+    <div slot="end">
+      <img [src]=user.photo style="border-radius: 50%;" width="40px" alt="">
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>
-    dashboard works!
-  </p>
-</ion-content>
+  
+  <!-- style="background: linear-gradient(rgba(178, 212, 207, 0.8), rgba(128, 194, 248, 0.7)),url('assets/images/unprg_plaza.jpg');" class="h-100" -->
 
+  <div> 
+    <img src="assets/images/unprg_map.gif" alt="">
+    <div class="w-100 text-center container">
+      <h4 style="color: rgb(104, 85, 0);"><b>¡AYUDEMOS A ENCONTRAR TU DESTINO!</b></h4>
+    </div>
+    <img src="assets/images/nino_unprg.jpeg" alt="" class="container">
+    <div class="container">
+      <h3 class=" encabezado">BUSCAR DESTINO</h3>
+      <h3 class=" encabezado">TOUR GUIADO</h3>
+      <h3 class=" encabezado">TRANSPORTE CERCANO</h3>
+    </div>
+     <p class="w-100 text-center">@2021 UNPRG MAPS APP</p>
+  </div>
+</ion-content>

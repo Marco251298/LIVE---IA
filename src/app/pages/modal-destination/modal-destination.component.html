@@ -1,46 +1,41 @@
-<!-- <p style="text-align: right;margin-right: 1rem;">
-  <a (click)="dismiss()">Cerrar</a>
-</p> -->
 <ion-header translucent>
   <ion-toolbar>
     <ion-title>Destino</ion-title>
     <a (click)="dismiss('cerrar')" slot="end">Cerrar</a>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar (input)="handleInput($event)" (ionClear)="onCancel($event)"></ion-searchbar>
+    <ion-searchbar (ionChange)="handleInput($event)" (ionClear)="onCancel($event)" [value]="textoVoz"></ion-searchbar>
+    <div class="w-100 text-center">
+      <ion-button *ngIf="!hablandoPersona" (click)="activarVoz()" color="primary" class="text-center">
+        <ion-icon name="mic-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="hablandoPersona" (click)="pararVoz()" color="danger" class="text-center">
+        <ion-icon name="mic-outline"></ion-icon>
+      </ion-button>
+      
+    </div>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <ion-list [ngClass]="objetivomodal!='tour' ? 'ionlist1' : 'ionlist2'">
     <ion-item *ngFor="let lugar of lugaresEncontrados" (click)="selectLugar(lugar)" style="cursor: pointer;">
       <div *ngIf="lugarSeleccionado != null; else normal">
-        <p>{{lugar.nombre}}</p>
+        <p class="text-primary">{{lugar.nombre}}</p>
+
         <img src="{{lugar.img}}"alt="" >
       </div>
       <ng-template #normal>
         <p>{{lugar.nombre}}</p>
+        <p *ngIf="lugaresEncontrados.length === 1"> (Seleccione)</p>
       </ng-template>  
     </ion-item>
     
 
   </ion-list>
   <hr>
-  <div id="tituloModoVista" *ngIf="objetivomodal!='tour'">
 
-    <ion-label>Modo de Vista</ion-label>
-  </div>
-  <ion-select value="maparuta" (ionChange)="cambiarModoVista($event)" *ngIf="objetivomodal!='tour'">
-    <ion-select-option value="maparuta">Mapa con la ruta</ion-select-option>
-    <ion-select-option value="direcciones">Direcciones</ion-select-option>
-  </ion-select>
-  <div id="explicacion" *ngIf="objetivomodal!='tour'">
-
-    <p style="align-content: justify;">
-     {{textoExplicacion}}
-    </p>
-  </div>
   <div id="confirmacion">
 
-    <ion-button color="primary" (click)="dismiss('ok')">LISTO!</ion-button>
+    <ion-button color="primary" (click)="cerrarModal()">LISTO!</ion-button>
   </div>
 </ion-content>

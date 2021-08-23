@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController, ToastController } from '@ionic/angular';
 import { PayloadDestino } from 'src/app/models/payloaddestino';
 import { ModalDestinationComponent } from '../modal-destination/modal-destination.component';
 
@@ -22,7 +23,8 @@ const d = document, n = navigator
   styleUrls: ['./destino.component.scss'],
 })
 export class DestinoComponent implements OnInit {
-
+  
+  public user;
   map: any;
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -42,33 +44,32 @@ export class DestinoComponent implements OnInit {
     //   location: { lat: -6.706816, lng: -79.906701 }, // Jardín Botánico
     //   stopover: true,
     // },
-    // {
-    //   location: { lat: 4.676802158355713, lng: -74.04825592041016 }, // Parque la 93
-    //   stopover: true,
-    // },
-    // {
-    //   location: { lat: 4.6554284, lng: -74.1094989}, // Maloka
-    //   stopover: true,
-    // },
+  
   ];
 
 
+
   constructor(
-    public modalController: ModalController
+    private route:ActivatedRoute,
+    private toastController: ToastController,
+    public modalController: ModalController,
+    public router:Router
   ) {
     // this.getGeolocation();
 
   }
-  public user;
-
   ngOnInit() {
-    if (localStorage.getItem('credentials')) {
-      this.user = JSON.parse(localStorage.getItem('credentials')).user
-      console.log('Load map')
-      this.loadMap();
-    }
+
+    console.log(this.route.snapshot)
+
+  
+    this.user = JSON.parse(localStorage.getItem('user'))
+    console.log('Load map')
+    this.loadMap();
+  
 
   }
+
   loadMap() {
     // create a new map by passing HTMLElement
     const mapEle: HTMLElement = document.getElementById('map');
@@ -96,6 +97,11 @@ export class DestinoComponent implements OnInit {
     if (localStorage.getItem('rutaguardada') && additional.length == 0) {
       console.log('lo haces desde storage')
       responseVar = JSON.parse(localStorage.getItem('rutaguardada'))
+      responseVar['routes'].forEach(element => {
+        element.warnings = []
+      });
+    //  responseVar['routes'][0].warnings = []
+      console.log(responseVar['routes'][0].warnings)
       this.directionsDisplay.setDirections(responseVar);
 
     } else {
@@ -109,8 +115,11 @@ export class DestinoComponent implements OnInit {
         travelMode: 'WALKING',
         avoidFerries: false
       }, (response, status) => {
-        // console.log(response)
+        console.log(response)
         responseVar = response
+        responseVar['routes'].forEach(element => {
+          element.warnings = []
+        });
         if (status === google.maps.DirectionsStatus.OK) {
           this.directionsDisplay.setDirections(responseVar);
           localStorage.setItem('rutaguardada',JSON.stringify(responseVar))
@@ -120,6 +129,14 @@ export class DestinoComponent implements OnInit {
       })
     }
 
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
   async presentModal(  ) {

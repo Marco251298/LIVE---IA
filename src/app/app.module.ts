@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -27,13 +29,19 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     IonicModule.forRoot(),
     AppRoutingModule,
     PagesModule,
-
+    AuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     
     
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
 
 
   ],

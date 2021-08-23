@@ -40,15 +40,12 @@ import { LoadComponent } from './load/load.component';
     IonicModule.forRoot(),
     CommonModule,
     RouterModule,
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFirestoreModule,
-    // AngularFireStorageModule,
-    // AngularFireAuthModule,
-    
   ],
   exports: [
+    CommonModule,
     DashboardComponent,
     PagesComponent,
+    RouterModule
     
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

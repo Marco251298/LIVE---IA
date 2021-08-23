@@ -1,0 +1,35 @@
+<ion-content>
+
+  
+  <!-- {{cargando}} -->
+  <!-- <div *ngIf="cargando()">
+   
+  </div> -->
+
+  <div class="w-100 text-center h-100"
+  style="justify-content: center;
+  align-items: center; display:flex" *ngIf="!cargando()">
+    <div style="display: inline-block;">
+      <div>
+
+        <h3><b>Ingrese con Google</b></h3> 
+      </div>
+      <img src="assets/images/nino_unprg.jpeg" alt="" class="container">
+     
+
+        <ion-button  (click)="onGoogleLogin()" color="secondary">
+          <img src="assets/images/logogoogle.png" width="15px" alt=""><b>oogle</b>
+        </ion-button>
+    
+    </div>
+  </div>
+
+  <div class="w-100 text-center h-100"
+  style="justify-content: center;
+  align-items: center; display:flex" *ngIf="cargando()">
+    <div style="display: inline-block;">
+      <p>Cargando...</p>
+      <img src="assets/images/cargando.gif" width="100px" style="color: cornflowerblue;" alt="">
+    </div>
+  </div>
+</ion-content>

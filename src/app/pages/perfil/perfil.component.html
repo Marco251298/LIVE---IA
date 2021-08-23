@@ -1,27 +1,44 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title class="subtitulo">Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <div class="mb-2" *ngIf="esperar == 'true'">
-      Espere...
-    </div>
-     <div class="mb-2">
-      name: {{user?.displayName}}
-      email: {{user?.email}}
-     </div>
-      <div style="text-align: center;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="subtitulo">Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
 
-          <ion-button color="primary" (click)="onGoogleLogin()">
-              Google
-          </ion-button>
-          <ion-button color="danger" (click)="salir()">
-              Salir
-          </ion-button>
-       
-        </div>
-  </ion-content>
+  {{mensajeEspera}}
+  <div class="mb-2">
+    <div class="w-100 text-center" style="background-color: rgb(243, 243, 243);">
+      <img [src]=user?.photoURL alt="">
+    </div>
+
+    <ion-item>
+      <ion-label>
+        Nombre:
+      </ion-label>
+      <p name="nombre" type="text" inputmode="text">{{user?.displayName}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Email:
+      </ion-label>
+      <p name="email" type="email" inputmode="text">{{user?.email}}</p>
+    </ion-item>
+
+
+
+
+  </div>
+  <div style="text-align: center;">
+
+    <ion-button color="primary" (click)="onGoogleLogin()" *ngIf="!user">
+      Google
+    </ion-button>
+    <ion-button color="danger" (click)="salir()" *ngIf="user">
+      Salir
+    </ion-button>
+
+  </div>
+</ion-content>

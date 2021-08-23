@@ -12,7 +12,6 @@ export class AppComponent {
     private firebaseauthService: FirebaseauthService,
     public afAuth: AngularFireAuth
   ) {
-    localStorage.setItem('esperar','false')
 
   }
 }

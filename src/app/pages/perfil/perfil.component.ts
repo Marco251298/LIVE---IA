@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 import { FirestorageService } from 'src/app/services/firestorage.service';
-import firebase from 'firebase/app'
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map,tap } from 'rxjs/operators';
 
 @Component({
@@ -14,51 +12,59 @@ import { map,tap } from 'rxjs/operators';
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
 })
-export class PerfilComponent implements OnInit {
+export class PerfilComponent implements OnInit,OnDestroy {
 
 
-  public user$ = of(localStorage.getItem('credentials')).pipe( map(e => JSON.parse(e)),tap(e => console.log(e)) ) ;
+  // public user$ = of(localStorage.getItem('credentials')).pipe( map(e => JSON.parse(e)) ).subscribe( res => {
+  //   console.log(res)
+  // } ) ;
+
+  public userSubject:Subject<any> = new Subject();
+  snapObserver$: Observable<any> = new Observable();
   public user ;
   public name = '';
   public email = '';
-  public esperar = 'false';
+  public mensajeEspera = '' ;
+
   constructor(
     public firebaseauthService: FirebaseauthService,
     public firestoreService: FirestorageService,
     public firestorageService: FirestorageService,
     public afAuth: AngularFireAuth,
     public router: Router,
-    private toastController: ToastController
-  ) { }
+    private toastController: ToastController,
+    private route:ActivatedRoute
+  ) { 
+    
+    
+  }
+  
+   
+  
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('credentials'))?.user;
-    this.esperar = JSON.parse(localStorage.getItem('esperar'));
-    if(!this.user$){
-      this.esperar = 'true';
+
+    if(!localStorage.getItem('credentials') && localStorage.getItem('loggin') == 'yes'){
+      this.mensajeEspera = 'Espere....'
     }
 
-    // // console.log('onIni')
-    // if(localStorage.getItem('credentials')){
+    if(localStorage.getItem('credentials')){
+      this.user = JSON.parse(localStorage.getItem('credentials')).user
+    }
 
-    //   this.user = JSON.parse(localStorage.getItem('credentials')).user
-    //   this.name = this.user.displayName
-    //   this.email = this.user.email
-    // }
-    // if(localStorage.getItem('credentials')){
 
-    //   this.user = JSON.parse(localStorage.getItem('credentials')).user
-    // }
-      
     this.afAuth.getRedirectResult().then((result) => {
       
       if (result.credential) {
         console.log('logueado: ',result.credential)
         localStorage.setItem('credentials',JSON.stringify(result))
-        // this.router.navigateByUrl('/');
         this.user = JSON.parse(localStorage.getItem('credentials')).user
-        this.esperar = 'false'
+        this.userSubject.next(JSON.parse(localStorage.getItem('credentials')))
+        this.mensajeEspera = ''
+        localStorage.setItem('loggin','no')
+
         this.presentToast('USUARIO LOGUEADO')
+        // this.router.navigate(['/dashboard/inicio'])
         
       }
     })
@@ -67,24 +73,24 @@ export class PerfilComponent implements OnInit {
   async onGoogleLogin(){
 
     try{
-      this.esperar = 'true';
-      localStorage.setItem('esperar','true')
-      this.firebaseauthService.loginGoogle()
+      localStorage.setItem('loggin','yes')
+      await this.firebaseauthService.loginGoogle()
     }catch(err){
       console.log(err)
     }
   }
   salir(){
-    this.esperar = 'true';
+    this.mensajeEspera = 'Espere....'
     this.firebaseauthService.logout().then(res=> {
       localStorage.removeItem('credentials')
       setTimeout(()=>{
         this.name = '';
         this.email = '';
         this.user = null;
-        this.esperar = 'false';
-
-        this.presentToast('USUARIO DESLOGUEADO')
+        this.mensajeEspera = ''
+        localStorage.setItem('deslogueo','true')
+        this.presentToast('USUARIO DESLOGUEADO'); 
+        // location.reload();
       },1000)
       
     
@@ -95,10 +101,13 @@ export class PerfilComponent implements OnInit {
   async presentToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
-      // cssClass: 'normal',
       duration: 2000
     });
     toast.present();
+  }
+
+  ngOnDestroy(){
+    this.userSubject.unsubscribe()
   }
 
  
