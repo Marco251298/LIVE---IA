@@ -92,6 +92,11 @@ export class ModalDestinationComponent implements OnInit {
       lat: -6.708193,
       lng: -79.908568
     },
+    {
+      nombre: 'Musas',
+      lat: -6.779587,
+      lng: -79.840016
+    }
 
   ];
   textos: string[] = [

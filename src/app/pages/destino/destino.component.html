@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title class="subtitulo">Destino</ion-title>
     <div slot="end">
-      <img [src]=user.photo style="border-radius: 50%;" width="40px" alt=""> 
+      <img [src]=user?.photo style="border-radius: 50%;" width="40px" alt=""> 
     </div>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +13,8 @@
   <div id="map" ></div>
   <div id="filteroptions" >
     <ion-button color="danger" (click)="presentModal()">Cambiar</ion-button>
-    <ion-button color="primary">
-      <ion-icon name="refresh-outline"></ion-icon>
+    <ion-button color="primary" (click)="actualizar()">
+      <ion-icon name="refresh-outline" ></ion-icon>
     </ion-button>
   </div>
   <div id="indicators"></div>

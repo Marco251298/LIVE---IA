@@ -26,6 +26,9 @@ export class DestinoComponent implements OnInit {
   
   public user;
   map: any;
+  openGeoLocation = false;
+  mensajeCambiarLugar = ''
+
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -55,17 +58,19 @@ export class DestinoComponent implements OnInit {
     public modalController: ModalController,
     public router:Router
   ) {
-    // this.getGeolocation();
+    
 
   }
   ngOnInit() {
 
     console.log(this.route.snapshot)
 
-  
     this.user = JSON.parse(localStorage.getItem('user'))
-    console.log('Load map')
-    this.loadMap();
+      console.log('Load map')
+      this.getGeolocation();
+    // this.user = JSON.parse(localStorage.getItem('user'))
+    // console.log('Load map')
+    // this.loadMap();
   
 
   }
@@ -92,9 +97,9 @@ export class DestinoComponent implements OnInit {
 
   }
 
-  private calculateRoute(additional:string = '') {
+  private calculateRoute() {
     var responseVar;
-    if (localStorage.getItem('rutaguardada') && additional.length == 0) {
+    if (localStorage.getItem('rutaguardada') && this.mensajeCambiarLugar.length == 0 && this.openGeoLocation == false) {
       console.log('lo haces desde storage')
       responseVar = JSON.parse(localStorage.getItem('rutaguardada'))
       responseVar['routes'].forEach(element => {
@@ -103,10 +108,11 @@ export class DestinoComponent implements OnInit {
     //  responseVar['routes'][0].warnings = []
       console.log(responseVar['routes'][0].warnings)
       this.directionsDisplay.setDirections(responseVar);
+      this.mensajeCambiarLugar = ''
 
     } else {
-
-      console.log('calculate route')
+      this.openGeoLocation = false;
+      console.log(this.destination)
       this.directionsService.route({
         origin: this.origin,
         destination: this.destination,
@@ -115,12 +121,13 @@ export class DestinoComponent implements OnInit {
         travelMode: 'WALKING',
         avoidFerries: false
       }, (response, status) => {
-        console.log(response)
+        
         responseVar = response
         responseVar['routes'].forEach(element => {
           element.warnings = []
         });
         if (status === google.maps.DirectionsStatus.OK) {
+          console.log('logrocalcular ruta')
           this.directionsDisplay.setDirections(responseVar);
           localStorage.setItem('rutaguardada',JSON.stringify(responseVar))
         } else {
@@ -162,19 +169,27 @@ export class DestinoComponent implements OnInit {
         console.log('Modal Data dismissed imagen: ' + modelData.data.lugar.img);
         if (modelData.data.message == 'ok') {
 
+         
+          // this.getGeolocation('cambiarLugar',)
+
+          console.log('sgte')
           this.destination = {
             lat: modelData.data.lugar.lat,
             lng: modelData.data.lugar.lng
           }
-          this.calculateRoute('cambiarLugar');
+          this.mensajeCambiarLugar = 'cambiarLugar'
+          this.getGeolocation('nuevamente')
+          // this.calculateRoute('cambiarLugar');
+       
         }
       }
     });
     return await modal.present();
   }
 
-  public getGeolocation() {
+  async getGeolocation(message:any = '') {
 
+    this.openGeoLocation = true;
 
     let options = {
       enableHighAccuracy: true,
@@ -184,10 +199,17 @@ export class DestinoComponent implements OnInit {
 
     const success = (position) => {
 
-
-
       console.log(position);
       this.origin = { lat: parseFloat(position.coords.latitude), lng: parseFloat(position.coords.longitude) };
+
+      if(message == 'nuevamente'){
+        this.calculateRoute()
+      }else{
+        this.loadMap();
+      }
+      
+      
+
     }
 
     const error = (err) => {
@@ -198,6 +220,11 @@ export class DestinoComponent implements OnInit {
     n.geolocation.getCurrentPosition(success, error, options);
 
 
+  }
+
+  actualizar(){
+    console.log(this.origin,this.destination)
+    this.getGeolocation('nuevamente')
   }
 
 }
