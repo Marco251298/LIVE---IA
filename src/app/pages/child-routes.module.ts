@@ -6,6 +6,7 @@ import { DestinoComponent } from './destino/destino.component';
 import { DestinoGuiadoComponent } from './destino-guiado/destino-guiado.component';
 import { TransporteComponent } from './transporte/transporte.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { PedritobotComponent } from './pedritobot/pedritobot.component';
 
 const childRoutes:Routes = [
   { path: '', redirectTo:'inicio'},
@@ -13,6 +14,7 @@ const childRoutes:Routes = [
   { path: 'inicio', component: DashboardComponent, data: { titulo: 'Dashboard' } },
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Destino' } },
   { path: 'destino', component: DestinoComponent, data: { titulo: 'Destino' } },
+  { path: 'pedritobot', component: PedritobotComponent, data: { titulo: '¿Mas acerca de nuestra UNPRG?' } },
   { path: 'destino-guiado', component: DestinoGuiadoComponent, data: { titulo: 'Destino Guiado' } },
   { path: 'transporte', component: TransporteComponent, data: { titulo: 'Transporte' } },
 

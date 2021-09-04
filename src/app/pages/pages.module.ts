@@ -21,6 +21,8 @@ import { TransporteComponent } from './transporte/transporte.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ModalDestinationComponent } from './modal-destination/modal-destination.component';
 import { LoadComponent } from './load/load.component';
+import { PedritobotComponent } from './pedritobot/pedritobot.component';
+import { SafePipe } from '../pipes/safe.pipe';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { LoadComponent } from './load/load.component';
     TransporteComponent,
     PerfilComponent,
     ModalDestinationComponent,
-    LoadComponent
+    LoadComponent,
+    PedritobotComponent,
+    SafePipe
     
   ],
   imports: [
@@ -45,7 +49,8 @@ import { LoadComponent } from './load/load.component';
     CommonModule,
     DashboardComponent,
     PagesComponent,
-    RouterModule
+    RouterModule,
+    SafePipe
     
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

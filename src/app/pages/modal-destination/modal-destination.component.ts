@@ -85,7 +85,9 @@ export class ModalDestinationComponent implements OnInit {
     {
       nombre: 'Facultad de ingeniería agrícola',
       lat: -6.707679,
-      lng: -79.908692
+      lng: -79.908692,
+      frame: "https://www.google.com/maps/embed?pb=!4v1630717181001!6m8!1m7!1sCAoSLEFGMVFpcE1heFRXM1pwYl9uUlNtaS1teEpmUmZ1alY2X2x2eHpzYXg4T2tH!2m2!1d-6.7077179!2d-79.9086476!3f188!4f0!5f0.7820865974627469",
+      descripcion: `sdasd\nsdasdasdasdasd`
     },
     {
       nombre: 'FIQIA',

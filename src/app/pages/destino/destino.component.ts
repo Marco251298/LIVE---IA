@@ -68,6 +68,7 @@ export class DestinoComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'))
       console.log('Load map')
       this.getGeolocation();
+      
     // this.user = JSON.parse(localStorage.getItem('user'))
     // console.log('Load map')
     // this.loadMap();
@@ -170,7 +171,7 @@ export class DestinoComponent implements OnInit {
         if (modelData.data.message == 'ok') {
 
          
-          // this.getGeolocation('cambiarLugar',)
+           this.getGeolocation('cambiarLugar',)
 
           console.log('sgte')
           this.destination = {

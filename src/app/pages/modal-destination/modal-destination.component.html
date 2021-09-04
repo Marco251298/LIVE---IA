@@ -22,7 +22,11 @@
       <div *ngIf="lugarSeleccionado != null; else normal">
         <p class="text-primary">{{lugar.nombre}}</p>
 
-        <img src="{{lugar.img}}"alt="" >
+        <iframe *ngIf="lugar.frame" [src]="lugar.frame | safe" width="300" height="350" style="border:0;" allowfullscreen="" loading="lazy" ></iframe>
+        <hr>
+        <p style="text-align:justify">
+          {{lugar.descripcion}}
+        </p>
       </div>
       <ng-template #normal>
         <p>{{lugar.nombre}}</p>
@@ -36,6 +40,6 @@
 
   <div id="confirmacion">
 
-    <ion-button color="primary" (click)="cerrarModal()">LISTO!</ion-button>
+    <ion-button *ngIf="lugarSeleccionado != null" color="primary" (click)="cerrarModal()">LISTO!</ion-button>
   </div>
 </ion-content>
