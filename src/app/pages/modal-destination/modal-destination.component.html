@@ -1,7 +1,7 @@
 <ion-header translucent>
   <ion-toolbar>
     <ion-title>Destino</ion-title>
-    <a (click)="dismiss('cerrar')" slot="end">Cerrar</a>
+    <a (click)="dismiss('cerrar')" slot="end"><b>Cerrar</b></a>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar (ionChange)="handleInput($event)" (ionClear)="onCancel($event)" [value]="textoVoz"></ion-searchbar>
@@ -19,13 +19,14 @@
 <ion-content fullscreen>
   <ion-list [ngClass]="objetivomodal!='tour' ? 'ionlist1' : 'ionlist2'">
     <ion-item *ngFor="let lugar of lugaresEncontrados" (click)="selectLugar(lugar)" style="cursor: pointer;">
-      <div *ngIf="lugarSeleccionado != null; else normal">
+      <div *ngIf="lugarSeleccionado != null; else normal" style="width: 100%; text-align: center;">
         <p class="text-primary">{{lugar.nombre}}</p>
 
-        <iframe *ngIf="lugar.frame" [src]="lugar.frame | safe" width="300" height="350" style="border:0;" allowfullscreen="" loading="lazy" ></iframe>
+        <iframe *ngIf="lugar.frame" [src]="lugar.frame | safe" style="max-width: 600px;" height="350" 
+        style="margin-left: auto; margin-right: auto;" style="border:0;" allowfullscreen="" loading="lazy" ></iframe>
         <hr>
-        <p style="text-align:justify">
-          {{lugar.descripcion}}
+        <p style="text-align:justify; width: auto;" *ngFor="let parrafo of lugar.descripcion">
+          {{parrafo}}<br>
         </p>
       </div>
       <ng-template #normal>
@@ -36,9 +37,10 @@
     
 
   </ion-list>
-  <hr>
+ 
 
-  <div id="confirmacion">
+  <div id="confirmacion" style="position: absolute; 
+  bottom: 0;">
 
     <ion-button *ngIf="lugarSeleccionado != null" color="primary" (click)="cerrarModal()">LISTO!</ion-button>
   </div>
