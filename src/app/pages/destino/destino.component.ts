@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { ModalDestinationComponent } from '../modal-destination/modal-destination.component';
 
 declare var google;
@@ -44,7 +45,8 @@ export class DestinoComponent implements OnInit {
     private route:ActivatedRoute,
     private toastController: ToastController,
     public modalController: ModalController,
-    public router:Router
+    public router:Router,
+    public firestoreService: FirestoreService
   ) { }
   ngOnInit() {
 
@@ -102,6 +104,23 @@ export class DestinoComponent implements OnInit {
         if (status === google.maps.DirectionsStatus.OK) {
           this.directionsDisplay.setDirections(responseVar);
           localStorage.setItem('rutaguardada',JSON.stringify(responseVar))
+
+          //Agregamos la cantidad del sitio buscado
+          
+          
+          if(JSON.parse(localStorage.getItem('lugarSeleccionado'))){
+            let lugarSeleccionado = JSON.parse(localStorage.getItem('lugarSeleccionado'))
+            console.log(lugarSeleccionado)
+      
+            console.log('asignacion')
+            this.firestoreService.udpateDoc(lugarSeleccionado.cantbusquedas,'lugares',lugarSeleccionado.id).then( _=>{
+              this.presentToast('Busqueda completa')
+              localStorage.removeItem('lugarSeleccionado')
+            } )
+            
+          }
+
+
         } else {
           alert('Could not display directions due to: ' + status);
         }

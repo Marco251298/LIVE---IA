@@ -26,7 +26,9 @@ export class FirestoreService {
 
  udpateDoc(data:any, path:string,id:string){
    const collection = this.database.collection(path);
-   return collection.doc(id).update(data)
+   return collection.doc(id).update({
+      cantbusquedas:data+1
+   })
  }
 
  getId(){

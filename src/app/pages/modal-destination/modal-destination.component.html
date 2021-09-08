@@ -12,36 +12,48 @@
       <ion-button *ngIf="hablandoPersona" (click)="pararVoz()" color="danger" class="text-center">
         <ion-icon name="mic-outline"></ion-icon>
       </ion-button>
-      
+
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <ion-list [ngClass]="objetivomodal!='tour' ? 'ionlist1' : 'ionlist2'">
-    <ion-item *ngFor="let lugar of lugaresEncontrados" (click)="selectLugar(lugar)" style="cursor: pointer;">
-      <div *ngIf="lugarSeleccionado != null; else normal" style="width: 100%; text-align: center;">
-        <p class="text-primary">{{lugar.nombre}}</p>
 
-        <iframe *ngIf="lugar.frame" [src]="lugar.frame | safe" style="max-width: 600px;" height="350" 
-        style="margin-left: auto; margin-right: auto;" style="border:0;" allowfullscreen="" loading="lazy" ></iframe>
-        <hr>
+    <div *ngIf="lugaresEncontrados.length == 0">
+      <ion-item *ngFor="let lugar of lugares" (click)="selectLugar(lugar)" style="cursor: pointer;">
+        <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p>
+      </ion-item>
+    </div>
+
+    <ion-item *ngFor="let lugar of lugaresEncontrados" (click)="selectLugar(lugar)" style="cursor: pointer;">
+      <div *ngIf="lugarSeleccionado != null; else normal"
+        style="width: 100%; text-align: center;">
+        <p class="text-primary">{{lugar.nombre}}</p>
+        
+        <iframe *ngIf="lugar.frame " [src]="lugar.frame | safe" style="max-width: 600px;" height="350"
+          style="margin-left: auto; margin-right: auto;" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <br>
+
+
         <p style="text-align:justify; width: auto;" *ngFor="let parrafo of lugar.descripcion">
           {{parrafo}}<br>
         </p>
+
       </div>
       <ng-template #normal>
-        <p>{{lugar.nombre}}</p>
-        <p *ngIf="lugaresEncontrados.length === 1"> (Seleccione)</p>
-      </ng-template>  
+
+        <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p>
+      </ng-template>
     </ion-item>
-    
+
 
   </ion-list>
- 
+
 
   <div id="confirmacion" style="position: absolute; 
   bottom: 0;">
 
     <ion-button *ngIf="lugarSeleccionado != null" color="primary" (click)="cerrarModal()">LISTO!</ion-button>
+    <ion-button *ngIf="lugarSeleccionado != null" color="danger" (click)="cancel()">CANCELAR</ion-button>
   </div>
 </ion-content>
