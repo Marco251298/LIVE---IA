@@ -21,15 +21,25 @@
 
     <div *ngIf="lugaresEncontrados.length == 0">
       <ion-item *ngFor="let lugar of lugares" (click)="selectLugar(lugar)" style="cursor: pointer;">
-        <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p>
+        <!-- <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p> -->
+        <div class="card w-100 mb-1 text-light" [ngClass]="lugar.importancia==1?'lugarimportante':'lugarnoimportante'">
+          <div class="card-header ">
+            <b>{{lugar.nombre}}</b>
+          </div>
+          <div class="card-body">
+            <blockquote class="mb-0">
+              <!-- <p>{{lugar.descripcion[0] | slice:0:10}} </p> -->
+              <footer class="text-light" style="font-size: 12px;">Cantidad de búsquedas: {{lugar.cantbusquedas}}</footer>
+            </blockquote>
+          </div>
+        </div>
       </ion-item>
     </div>
 
     <ion-item *ngFor="let lugar of lugaresEncontrados" (click)="selectLugar(lugar)" style="cursor: pointer;">
-      <div *ngIf="lugarSeleccionado != null; else normal"
-        style="width: 100%; text-align: center;">
+      <div *ngIf="lugarSeleccionado != null; else normal" style="width: 100%; text-align: center;">
         <p class="text-primary">{{lugar.nombre}}</p>
-        
+
         <iframe *ngIf="lugar.frame " [src]="lugar.frame | safe" style="max-width: 600px;" height="350"
           style="margin-left: auto; margin-right: auto;" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         <br>
@@ -42,7 +52,19 @@
       </div>
       <ng-template #normal>
 
-        <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p>
+        <!-- <p>{{lugar.nombre}} (#B: {{lugar.cantbusquedas}})</p> -->
+        <div class="card w-100 mb-1 bg-primary text-light">
+          <div class="card-header ">
+            {{lugar.nombre}}
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <!-- <p>{{lugar.descripcion[0] | slice:0:10}} </p> -->
+              <footer class="blockquote-footer text-light">Cantidad de búsquedas: {{lugar.cantbusquedas}}</footer>
+            </blockquote>
+          </div>
+        </div>
+
       </ng-template>
     </ion-item>
 
@@ -50,7 +72,7 @@
   </ion-list>
 
 
-  <div id="confirmacion" style="position: absolute; 
+  <div id="confirmacion" style="position: absolute;
   bottom: 0;">
 
     <ion-button *ngIf="lugarSeleccionado != null" color="primary" (click)="cerrarModal()">LISTO!</ion-button>

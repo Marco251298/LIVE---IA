@@ -24,6 +24,7 @@ import { LoadComponent } from './load/load.component';
 import { PedritobotComponent } from './pedritobot/pedritobot.component';
 import { SafePipe } from '../pipes/safe.pipe';
 
+// import { OrdenarPorCantidadBusquedasPipe } from '../pipes/ordenar-por-cantidad-busquedas.pipe';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,9 @@ import { SafePipe } from '../pipes/safe.pipe';
     ModalDestinationComponent,
     LoadComponent,
     PedritobotComponent,
-    SafePipe
-    
+    SafePipe,
+    // OrdenarPorCantidadBusquedasPipe
+
   ],
   imports: [
     BrowserModule,
@@ -50,8 +52,9 @@ import { SafePipe } from '../pipes/safe.pipe';
     DashboardComponent,
     PagesComponent,
     RouterModule,
-    SafePipe
-    
+    SafePipe,
+    // OrdenarPorCantidadBusquedasPipe
+
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
 

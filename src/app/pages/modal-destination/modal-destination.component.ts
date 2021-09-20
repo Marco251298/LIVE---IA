@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ModalController, ToastController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
+// import { OrdenarPorCantidadBusquedasPipe } from 'src/app/pipes/ordenar-por-cantidad-busquedas.pipe';
 // import { lugares } from '../destinos';
 
 declare const webkitSpeechRecognition: any;
@@ -40,7 +41,8 @@ export class ModalDestinationComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     private toastController: ToastController,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    // private ordenar:OrdenarPorCantidadBusquedasPipe
   ) {
     this.recognition.lang = 'es-ES';
     this.recognition.continuous = true;
@@ -50,10 +52,26 @@ export class ModalDestinationComponent implements OnInit {
   ngOnInit() {
 
     this.db.collection('lugares').valueChanges({idField: 'id'})
-   
-      .subscribe(resp => {
+
+    .pipe(
+      map((arrayresult:any) => {
+        // this.ordenar.transform(arrayresult)
+        arrayresult.sort((a: any, b: any) => {
+          console.log(a.cantbusquedas)
+          if (a.cantbusquedas > b.cantbusquedas) {
+            return -1;
+          } else if (a.cantbusquedas < b.cantbusquedas) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        return arrayresult;
+      })
+    )
+    .subscribe((resp:any) => {
         this.lugares = resp
-        
+
         console.log(this.lugares)
       })
 

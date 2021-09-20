@@ -16,12 +16,14 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthModule } from './auth/auth.module';
+// import { OrdenarPorCantidadBusquedasPipe } from './pipes/ordenar-por-cantidad-busquedas.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NopagefoundComponent,
+    // OrdenarPorCantidadBusquedasPipe,
   ],
   entryComponents: [],
   imports: [
@@ -31,8 +33,7 @@ import { AuthModule } from './auth/auth.module';
     PagesModule,
     AuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    
-    
+
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
