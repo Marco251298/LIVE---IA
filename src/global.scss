@@ -24,3 +24,16 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+*{
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+}
+.new-background-color{
+  --background: #466ca4;
+  color: aliceblue;
+}
+.new-background-color2{
+  --background: #76acc0;
+
+  // color: aliceblue;
+}
