@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { DemoComponent } from '../demo/demo.component';
 import { ModalDestinationComponent } from '../modal-destination/modal-destination.component';
 
 declare var google;
@@ -23,7 +24,7 @@ const d = document, n = navigator
   styleUrls: ['./destino.component.scss'],
 })
 export class DestinoComponent implements OnInit {
-  
+
   public user;
   map: any;
   openGeoLocation = false;
@@ -96,7 +97,7 @@ export class DestinoComponent implements OnInit {
         travelMode: 'WALKING',
         avoidFerries: false
       }, (response, status) => {
-        
+
         responseVar = response
         responseVar['routes'].forEach(element => {
           element.warnings = []
@@ -106,18 +107,18 @@ export class DestinoComponent implements OnInit {
           localStorage.setItem('rutaguardada',JSON.stringify(responseVar))
 
           //Agregamos la cantidad del sitio buscado
-          
-          
+
+
           if(JSON.parse(localStorage.getItem('lugarSeleccionado'))){
             let lugarSeleccionado = JSON.parse(localStorage.getItem('lugarSeleccionado'))
             console.log(lugarSeleccionado)
-      
+
             console.log('asignacion')
             this.firestoreService.udpateDoc(lugarSeleccionado.cantbusquedas,'lugares',lugarSeleccionado.id).then( _=>{
               this.presentToast('Busqueda completa')
               localStorage.removeItem('lugarSeleccionado')
             } )
-            
+
           }
 
 
@@ -151,7 +152,7 @@ export class DestinoComponent implements OnInit {
     modal.onDidDismiss().then((modelData) => {
       if (modelData !== null && modelData.data != null && modelData.data.lugar != null) {
 
-        if (modelData.data.message == 'ok') {         
+        if (modelData.data.message == 'ok') {
            this.getGeolocation('cambiarLugar',)
           this.destination = {
             lat: modelData.data.lugar.lat,
@@ -190,6 +191,28 @@ export class DestinoComponent implements OnInit {
   actualizar(){
     console.log(this.origin,this.destination)
     this.getGeolocation('nuevamente')
+  }
+
+  modalDemo(){
+    this.presentModalDemo()
+  }
+
+  async presentModalDemo(  ) {
+
+    const modal = await this.modalController.create({
+      component: DemoComponent,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      componentProps: {
+        'firstName': 'Douglas',
+        'lastName': 'Adams',
+        'middleInitial': 'N'
+      }
+    });
+    modal.onDidDismiss().then((_) => {
+      console.log('Modal cerrado')
+    });
+    return await modal.present();
   }
 
 }

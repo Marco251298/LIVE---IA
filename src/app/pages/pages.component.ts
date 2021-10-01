@@ -12,6 +12,8 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnInit {
+
+  public openLinkTour:boolean = false;
   constructor(
     public firebaseauthService: FirebaseauthService,
     public afAuth: AngularFireAuth,
@@ -19,7 +21,7 @@ export class PagesComponent implements OnInit {
     public toastController: ToastController,
     public route:ActivatedRoute
   ) { }
-  
+
   ngOnInit() {}
 
   desloguear(){

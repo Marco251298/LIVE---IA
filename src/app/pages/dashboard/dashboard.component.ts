@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
+import { DemoComponent } from 'src/app/pages/demo/demo.component';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,11 +12,11 @@ import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 export class DashboardComponent implements OnInit {
 
   public user;
-  
-  constructor( 
-    private route:ActivatedRoute, 
-    public firebaseauthService: FirebaseauthService,
 
+  constructor(
+    private route:ActivatedRoute,
+    public firebaseauthService: FirebaseauthService,
+    public modalController: ModalController,
     public toastController: ToastController,
 
     ) { }
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     localStorage.setItem('cargando','descargado')
     this.user = JSON.parse(localStorage.getItem('user'))
 
-   
+
 
   }
   async presentToast(msg: string) {
@@ -37,6 +37,28 @@ export class DashboardComponent implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  modalDemo(){
+    this.presentModal()
+  }
+
+  async presentModal(  ) {
+
+    const modal = await this.modalController.create({
+      component: DemoComponent,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      componentProps: {
+        'firstName': 'Douglas',
+        'lastName': 'Adams',
+        'middleInitial': 'N'
+      }
+    });
+    modal.onDidDismiss().then((_) => {
+      console.log('Modal cerrado')
+    });
+    return await modal.present();
   }
 
 

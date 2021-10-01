@@ -23,7 +23,11 @@ import { ModalDestinationComponent } from './modal-destination/modal-destination
 import { LoadComponent } from './load/load.component';
 import { PedritobotComponent } from './pedritobot/pedritobot.component';
 import { SafePipe } from '../pipes/safe.pipe';
-
+import { DemoComponent } from './demo/demo.component';
+import { TourPosgradoComponent } from './tours/tour-posgrado/tour-posgrado.component';
+import { TourGradosYTitulosComponent } from './tours/tour-grados-ytitulos/tour-grados-ytitulos.component';
+import { TourFacultadComponent } from './tours/tour-facultad/tour-facultad.component';
+TourPosgradoComponent
 // import { OrdenarPorCantidadBusquedasPipe } from '../pipes/ordenar-por-cantidad-busquedas.pipe';
 
 @NgModule({
@@ -38,6 +42,10 @@ import { SafePipe } from '../pipes/safe.pipe';
     LoadComponent,
     PedritobotComponent,
     SafePipe,
+    DemoComponent,
+    TourPosgradoComponent,
+    TourGradosYTitulosComponent,
+    TourFacultadComponent
     // OrdenarPorCantidadBusquedasPipe
 
   ],
@@ -53,6 +61,7 @@ import { SafePipe } from '../pipes/safe.pipe';
     PagesComponent,
     RouterModule,
     SafePipe,
+    DemoComponent
     // OrdenarPorCantidadBusquedasPipe
 
   ],
