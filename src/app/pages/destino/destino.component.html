@@ -5,7 +5,8 @@
     </ion-buttons>
     <ion-title class="subtitulo">Destino</ion-title>
     <div slot="end">
-      <img [src]=user?.photo style="border-radius: 50%;" width="40px" alt="">
+      <ion-button color="danger" (click)="presentModalDemo()" class="mr-2 p-0"><b>?</b></ion-button>
+      <img class="mr-1" [src]=user?.photo style="border-radius: 50%;" width="40px" alt="">
     </div>
   </ion-toolbar>
 </ion-header>

@@ -7,16 +7,20 @@ import { DestinoGuiadoComponent } from './destino-guiado/destino-guiado.componen
 import { TransporteComponent } from './transporte/transporte.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PedritobotComponent } from './pedritobot/pedritobot.component';
+import { TourPosgradoComponent } from './tours/tour-posgrado/tour-posgrado.component';
+import { TourGradosYTitulosComponent } from './tours/tour-grados-ytitulos/tour-grados-ytitulos.component';
+import { TourFacultadComponent } from './tours/tour-facultad/tour-facultad.component';
 
 const childRoutes:Routes = [
   { path: '', redirectTo:'inicio'},
 
-  { path: 'inicio', component: DashboardComponent, data: { titulo: 'Dashboard' } },
-  { path: 'perfil', component: PerfilComponent, data: { titulo: 'Destino' } },
+  { path: 'inicio', component: DashboardComponent, data: { titulo: 'Inicio' } },
+  { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil' } },
   { path: 'destino', component: DestinoComponent, data: { titulo: 'Destino' } },
   { path: 'pedritobot', component: PedritobotComponent, data: { titulo: '¿Mas acerca de nuestra UNPRG?' } },
-  { path: 'destino-guiado', component: DestinoGuiadoComponent, data: { titulo: 'Destino Guiado' } },
-  { path: 'transporte', component: TransporteComponent, data: { titulo: 'Transporte' } },
+  { path: 'posgrado', component: TourPosgradoComponent, data: { titulo: 'Posgrado' } },
+  { path: 'graytit', component: TourGradosYTitulosComponent, data: { titulo: 'Grados y ttulos' } },
+  { path: 'facultad', component: TourFacultadComponent, data: { titulo: 'Facultades' } }
 
 ]
 
