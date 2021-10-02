@@ -13,25 +13,22 @@ export class AuthGuard implements CanActivate, CanLoad {
   constructor(
     public afAuth: AngularFireAuth,
     public firebaseAuthService:FirebaseauthService,
-    private router: Router
-    ){
-      console.log('estas en el auth guard')
-  }
+    ){  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.firebaseAuthService.getCredentials()
 
-   
+
 
   }
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      
+
       return this.firebaseAuthService.getCredentials()
-      
+
   }
 
 }

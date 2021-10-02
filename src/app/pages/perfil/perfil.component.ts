@@ -15,10 +15,6 @@ import { map,tap } from 'rxjs/operators';
 export class PerfilComponent implements OnInit,OnDestroy {
 
 
-  // public user$ = of(localStorage.getItem('credentials')).pipe( map(e => JSON.parse(e)) ).subscribe( res => {
-  //   console.log(res)
-  // } ) ;
-
   public userSubject:Subject<any> = new Subject();
   snapObserver$: Observable<any> = new Observable();
   public user ;
@@ -33,14 +29,13 @@ export class PerfilComponent implements OnInit,OnDestroy {
     public afAuth: AngularFireAuth,
     public router: Router,
     private toastController: ToastController,
-    private route:ActivatedRoute
-  ) { 
-    
-    
+  ) {
+
+
   }
-  
-   
-  
+
+
+
 
   ngOnInit() {
 
@@ -54,9 +49,8 @@ export class PerfilComponent implements OnInit,OnDestroy {
 
 
     this.afAuth.getRedirectResult().then((result) => {
-      
+
       if (result.credential) {
-        console.log('logueado: ',result.credential)
         localStorage.setItem('credentials',JSON.stringify(result))
         this.user = JSON.parse(localStorage.getItem('credentials')).user
         this.userSubject.next(JSON.parse(localStorage.getItem('credentials')))
@@ -65,7 +59,7 @@ export class PerfilComponent implements OnInit,OnDestroy {
 
         this.presentToast('USUARIO LOGUEADO')
         // this.router.navigate(['/dashboard/inicio'])
-        
+
       }
     })
   }
@@ -76,7 +70,6 @@ export class PerfilComponent implements OnInit,OnDestroy {
       localStorage.setItem('loggin','yes')
       await this.firebaseauthService.loginGoogle()
     }catch(err){
-      console.log(err)
     }
   }
   salir(){
@@ -89,12 +82,11 @@ export class PerfilComponent implements OnInit,OnDestroy {
         this.user = null;
         this.mensajeEspera = ''
         localStorage.setItem('deslogueo','true')
-        this.presentToast('USUARIO DESLOGUEADO'); 
-        // location.reload();
+        this.presentToast('USUARIO DESLOGUEADO');
       },1000)
-      
-    
-     
+
+
+
 
     } )
   }
@@ -110,6 +102,6 @@ export class PerfilComponent implements OnInit,OnDestroy {
     this.userSubject.unsubscribe()
   }
 
- 
+
 
 }

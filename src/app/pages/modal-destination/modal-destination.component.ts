@@ -57,7 +57,6 @@ export class ModalDestinationComponent implements OnInit {
       map((arrayresult:any) => {
         // this.ordenar.transform(arrayresult)
         arrayresult.sort((a: any, b: any) => {
-          console.log(a.cantbusquedas)
           if (a.cantbusquedas > b.cantbusquedas) {
             return -1;
           } else if (a.cantbusquedas < b.cantbusquedas) {
@@ -71,8 +70,6 @@ export class ModalDestinationComponent implements OnInit {
     )
     .subscribe((resp:any) => {
         this.lugares = resp
-
-        console.log(this.lugares)
       })
 
       this.recognition.onresult = (event) => {

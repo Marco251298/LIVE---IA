@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Observable, of } from 'rxjs';
 import { DemoComponent } from 'src/app/pages/demo/demo.component';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 @Component({
@@ -55,9 +54,7 @@ export class DashboardComponent implements OnInit {
         'middleInitial': 'N'
       }
     });
-    modal.onDidDismiss().then((_) => {
-      console.log('Modal cerrado')
-    });
+    modal.onDidDismiss().then((_) => { });
     return await modal.present();
   }
 

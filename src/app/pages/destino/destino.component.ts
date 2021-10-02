@@ -36,14 +36,10 @@ export class DestinoComponent implements OnInit {
   origin = { lat: -6.706316, lng: -79.906635 };
   destination = { lat: -6.706816, lng: -79.906701 };
   wayPoints: WayPoint[] = [
-    // {
-    //   location: { lat: -6.706816, lng: -79.906701 }, // Lugar X
-    //   stopover: true,
-    // },
+
   ];
 
   constructor(
-    private route:ActivatedRoute,
     private toastController: ToastController,
     public modalController: ModalController,
     public router:Router,
@@ -51,10 +47,7 @@ export class DestinoComponent implements OnInit {
   ) { }
   ngOnInit() {
 
-    console.log(this.route.snapshot)
-
     this.user = JSON.parse(localStorage.getItem('user'))
-      console.log('Load map')
       this.getGeolocation();
   }
 
@@ -111,9 +104,7 @@ export class DestinoComponent implements OnInit {
 
           if(JSON.parse(localStorage.getItem('lugarSeleccionado'))){
             let lugarSeleccionado = JSON.parse(localStorage.getItem('lugarSeleccionado'))
-            console.log(lugarSeleccionado)
 
-            console.log('asignacion')
             this.firestoreService.udpateDoc(lugarSeleccionado.cantbusquedas,'lugares',lugarSeleccionado.id).then( _=>{
               this.presentToast('Busqueda completa')
               localStorage.removeItem('lugarSeleccionado')
@@ -165,7 +156,7 @@ export class DestinoComponent implements OnInit {
     });
     return await modal.present();
   }
-  async getGeolocation(message:any = '') {
+  async getGeolocation(message:string = '') {
 
     this.openGeoLocation = true;
     let options = {
@@ -181,15 +172,11 @@ export class DestinoComponent implements OnInit {
         this.loadMap();
       }
     }
-    const error = (err) => {
-
-      console.log(`Error ${err.code}: ${err.message}`);
-    }
+    const error = (_) => { }
     n.geolocation.getCurrentPosition(success, error, options);
   }
 
   actualizar(){
-    console.log(this.origin,this.destination)
     this.getGeolocation('nuevamente')
   }
 
@@ -210,7 +197,6 @@ export class DestinoComponent implements OnInit {
       }
     });
     modal.onDidDismiss().then((_) => {
-      console.log('Modal cerrado')
     });
     return await modal.present();
   }

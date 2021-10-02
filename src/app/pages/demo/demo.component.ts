@@ -12,7 +12,7 @@ export class DemoComponent implements OnInit {
 
   ngOnInit() {}
 
-  dismiss(message) {
+  dismiss(_) {
 
     this.modalController.dismiss('OK');
   }

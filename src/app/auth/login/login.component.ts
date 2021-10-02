@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 
 @Component({
@@ -28,22 +27,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(localStorage.getItem('cargando'),'cargando')
-
-
 
     this.userSubject.subscribe({
-      next: (v) => {
-        console.log(v)
-        
-      }
+      next: (_) => { }
     })
 
 
 
     this.afAuth.getRedirectResult().then((result) => {
-      console.log('producto del login')
-      
       if (result.credential) {
 
 
@@ -53,16 +44,12 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('user', JSON.stringify(user))
         this.userSubject.next('Agregado')
-        
-        // setTimeout(()=>{
 
-        //   this.presentToast(`BIENVENIDO`)
-        // } ,500)
 
         this.router.navigate(['/dashboard/inicio',{logueado:true}])
-       
-        
-        
+
+
+
       }
     })
   }
@@ -72,10 +59,9 @@ export class LoginComponent implements OnInit {
     try {
       await this.firebaseauthService.loginGoogle()
     } catch (err) {
-      console.log(err)
     }
   }
 
-  
+
 
 }
