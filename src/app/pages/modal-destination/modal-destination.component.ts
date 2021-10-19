@@ -69,6 +69,7 @@ export class ModalDestinationComponent implements OnInit {
       })
     )
     .subscribe((resp:any) => {
+      console.log('lugares')
         this.lugares = resp
       })
 
@@ -114,6 +115,7 @@ export class ModalDestinationComponent implements OnInit {
 
       });
       this.lugaresEncontrados = lugaresFiltro
+      console.log(this.lugaresEncontrados)
     }
   }
   cambiarModoVista(event) {

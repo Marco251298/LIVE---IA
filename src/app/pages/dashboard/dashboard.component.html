@@ -4,9 +4,9 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title class="subtitulo">Inicio</ion-title>
-    <div slot="end">
+    <!-- <div slot="end">
       <img [src]=user.photo style="border-radius: 50%;" width="40px" alt="">
-    </div>
+    </div> -->
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -28,10 +28,15 @@
     <hr>-->
     <div class="container">
 
-      <iframe style="width: 100%; border-radius: 30px;" height="315" src="https://www.youtube.com/embed/7OS1-0b3-Z4"
+      <!-- <iframe style="width: 100%; border-radius: 30px;" height="315" src="https://www.youtube.com/embed/7OS1-0b3-Z4"
         title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
+        allowfullscreen></iframe> -->
+        <iframe  style="width: 100%; " height="315"
+         src="https://www.youtube.com/embed/Ovv0mMONSgc" title="YouTube video player"
+         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+         allowfullscreen></iframe>
+
 
 
       <!-- <div style="border-radius: 30px; padding: 1rem; background-color: rgb(62, 130, 255); color: aliceblue;">
@@ -57,9 +62,9 @@
       </h5>
     </div>
 
-    <div class="w-100 text-center mb-2">
+    <div class="w-100 text-center mb-2 container">
 
-      <ion-button (click)="modalDemo()">Ver demo</ion-button>
+      <ion-button class="w-100" (click)="modalDemo()">Ver demo</ion-button>
     </div>
     <br><br><br>
     <!-- <p

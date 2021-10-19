@@ -7,10 +7,10 @@ import { AuthGuard } from '../guards/auth.guard';
 
 
 const routes: Routes = [
-    { 
-        path: 'dashboard', 
+    {
+        path: 'dashboard',
         component: PagesComponent,
-        canActivate: [ AuthGuard ],
+        // canActivate: [ AuthGuard ],
         canLoad: [ AuthGuard ],
         loadChildren: () => import('./child-routes.module').then( m => m.ChildRoutesModule )
     },

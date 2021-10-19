@@ -9,7 +9,7 @@ import { AuthRoutingModule } from './auth/auth.routing';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard/inicio', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/destino', pathMatch: 'full' },
   {
     path: '**',
     component: NopagefoundComponent
