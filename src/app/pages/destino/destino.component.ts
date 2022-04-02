@@ -33,8 +33,8 @@ export class DestinoComponent implements OnInit {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
 
-  //origin = { lat: -6.779531882589856, lng: -79.84473182899671 }; //lat: -6.779531882589856, lng: -79.84473182899671
-  //destination = { lat: -6.763287941140208, lng: -79.83811883560287 }; //lat: 6.763287941140208, lng: -79.83811883560287
+  origin = { lat: -6.779531882589856, lng: -79.84473182899671 }; //lat: -6.779531882589856, lng: -79.84473182899671
+  destination = { lat: -6.763287941140208, lng: -79.83811883560287 }; //lat: 6.763287941140208, lng: -79.83811883560287
   wayPoints: WayPoint[] = [
 
   ];
@@ -136,7 +136,7 @@ export class DestinoComponent implements OnInit {
       componentProps: {
         'firstName': 'Douglas',
         'lastName': 'Adams',
-        'middleInitial': 'N'
+        'middleInitial': 'N',
       }
     });
   }
