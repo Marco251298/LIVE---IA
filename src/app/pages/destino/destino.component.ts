@@ -33,8 +33,8 @@ export class DestinoComponent implements OnInit {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
 
-  origin = { lat: -6.706316, lng: -79.906635 };
-  destination = { lat: -6.706816, lng: -79.906701 };
+  //origin = { lat: -6.779531882589856, lng: -79.84473182899671 }; //lat: -6.779531882589856, lng: -79.84473182899671
+  //destination = { lat: -6.763287941140208, lng: -79.83811883560287 }; //lat: 6.763287941140208, lng: -79.83811883560287
   wayPoints: WayPoint[] = [
 
   ];
@@ -128,6 +128,19 @@ export class DestinoComponent implements OnInit {
     toast.present();
   }
 
+  async presentUbicacion() {
+    const modal = await this.modalController.create({
+      component: ModalDestinationComponent,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      componentProps: {
+        'firstName': 'Douglas',
+        'lastName': 'Adams',
+        'middleInitial': 'N'
+      }
+    });
+  }
+
   async presentModal(  ) {
 
     const modal = await this.modalController.create({
@@ -140,6 +153,7 @@ export class DestinoComponent implements OnInit {
         'middleInitial': 'N'
       }
     });
+    
     modal.onDidDismiss().then((modelData) => {
       if (modelData !== null && modelData.data != null && modelData.data.lugar != null) {
 
