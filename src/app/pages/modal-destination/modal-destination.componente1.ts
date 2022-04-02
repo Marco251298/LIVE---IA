@@ -14,7 +14,9 @@ declare const webkitSpeechRecognition: any;
   templateUrl: './modal-destination.component.html',
   styleUrls: ['./modal-destination.component.scss'],
 })
-export class ModalDestinationComponent implements OnInit {
+
+//ubicacion determinada
+export class ModalDestinationComponent2 implements OnInit {
 
   @Input() objetivomodal;
   searchbar = document.querySelector('ion-searchbar');
@@ -50,7 +52,7 @@ export class ModalDestinationComponent implements OnInit {
     this.recognition.interimResults = false;
 
   }
-  
+
   ngOnInit(){
 
     this.db.collection('ubicacion determinada').valueChanges({idField: 'id'})
@@ -71,7 +73,7 @@ export class ModalDestinationComponent implements OnInit {
       })
     )
     .subscribe((resp:any) => {
-      console.log('lugares')
+      console.log('Ubicacion')
         this.lugares = resp
       })
 
@@ -173,5 +175,3 @@ export class ModalDestinationComponent implements OnInit {
     toast.present();
   }
 }
-
-

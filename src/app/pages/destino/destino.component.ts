@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { DemoComponent } from '../demo/demo.component';
 import { ModalDestinationComponent } from '../modal-destination/modal-destination.component';
+//import { ModalDestinationComponent2 } from '../modal-destination/modal-destination.componente1';
 
 declare var google;
 
